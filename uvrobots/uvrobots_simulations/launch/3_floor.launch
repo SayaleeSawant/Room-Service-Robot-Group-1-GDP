@@ -25,8 +25,9 @@
   </include>
 
   <!-- Call spawn_urdf node to spawn robot -->
-  <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model $(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
-
+  <!-- Robot is called in world file so no need to call it again or it causes spawn error -->
+<!--  <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model $(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
+-->
   <!-- Start Gazebo with a blank world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="debug" value="$(arg debug)" />
@@ -37,8 +38,6 @@
     <!-- Change world --> 
     <arg name="world_name" value="$(find uvrobots_simulations)/worlds/3_floor.world"/>
   </include>
-
-
 
 </launch>
 
