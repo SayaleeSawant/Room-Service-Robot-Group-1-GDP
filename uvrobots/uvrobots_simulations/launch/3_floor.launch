@@ -11,17 +11,6 @@
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
 
-  <!-- Start Gazebo with a blank world -->
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="debug" value="$(arg debug)" />
-    <arg name="gui" value="$(arg gui)" />
-    <arg name="paused" value="false"/>
-    <arg name="use_sim_time" value="true"/>
-    <arg name="headless" value="$(arg headless)"/>
-    <!-- Change world --> 
-    <arg name="world_name" value="$(find uvrobots_simulations)/worlds/map.sdf"/>
-  </include>
-
   <!-- Choose what model of robot you wanna use using previous environment variable definition with command : export UVRobots_Model = v3  --> 
   <arg name="model" default="$(env UVRobots_Model)" doc="model type [v2, v2_uv, v2_restaurant, v3, v3_uv, v3_restaurant]"/>
 
@@ -37,6 +26,19 @@
 
   <!-- Call spawn_urdf node to spawn robot -->
   <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model $(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
+
+  <!-- Start Gazebo with a blank world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="headless" value="$(arg headless)"/>
+    <!-- Change world --> 
+    <arg name="world_name" value="$(find uvrobots_simulations)/worlds/3_floor.world"/>
+  </include>
+
+
 
 </launch>
 
