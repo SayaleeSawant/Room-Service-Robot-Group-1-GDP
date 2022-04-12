@@ -1,0 +1,26 @@
+<launch>
+  <arg name="initial_pose_x" default="0.0"/> 
+  <arg name="initial_pose_y" default="0.0"/> 
+  <arg name="initial_pose_a" default="0.0"/>
+
+  <!--arg name="map_file" default="$(find uvrobots_nav)/maps/MichalFinal.yaml"/ --> 
+  <!--arg name="map_file" default="$(find uvrobots_simulations)/maps/map.yaml"-->
+
+  <arg name="map_file" default="$(find uvrobots_simulations)/maps/3_floor.yaml"/>
+
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <include file="$(find uvrobots_nav)/launch/include/odom/amcl.launch.xml">
+    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
+  </include>
+
+  <include file="$(find uvrobots_nav)/launch/include/odom/teb_move_base.launch"/>
+  <include file="$(find world_canvas_server)/launch/world_canvas_server.launch"/>
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
+
+  <!-- rviz -->
+  <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find uvrobots_nav)/rviz/navigation.rviz"/>
+</launch>

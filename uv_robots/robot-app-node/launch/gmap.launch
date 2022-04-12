@@ -1,0 +1,4 @@
+<launch>
+  <!-- include file="$(find uvrobots_nav)/launch/include/imu/gmapping.launch"/ -->
+  <include file="$(find uvrobots_nav)/launch/include/odom/gmapping.launch"/>
+</launch>  

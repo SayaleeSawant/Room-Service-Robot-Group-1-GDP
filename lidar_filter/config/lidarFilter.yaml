@@ -1,0 +1,14 @@
+#Angular Bound Filter In
+angleFilterIn: false
+
+#Angular Bound Filter Out
+angleFilterOut: true
+
+#Minimum Range Filter
+minRangeFilter: true
+
+#Parameters value
+lowerAngle: 1.57
+upperAngle: 4.71
+minRange: 0.12
+

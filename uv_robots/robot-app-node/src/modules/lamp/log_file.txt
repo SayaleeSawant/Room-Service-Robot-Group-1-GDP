@@ -1,0 +1,1 @@
+Goal pose 1 received a cancel request after it started executing, completed execution!

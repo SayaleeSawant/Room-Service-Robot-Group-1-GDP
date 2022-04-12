@@ -1,0 +1,1000 @@
+<?xml version="1.0" ?>
+<robot name="uvrobot_v2" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find uvrobots_description)/urdf/uvrobot_v2.gazebo.xacro"/>
+  
+
+  <!-- *** Link Definitions *** -->
+	
+  <!-- Base Footprint -->
+	<link name="base_footprint"/>
+
+
+	<!-- Base Link -->
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0.0 0.0 0.0446" rpy="0 0 0"/>
+  </joint>
+
+	<link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+		  <mass value="1.28651"/>
+		  <inertia ixx="4.09876e-03" ixy="2.74202e-06" ixz="1.35022e-05"
+               iyy="6.10042e-03" iyz="-5.46931e-06"
+               izz="1.01978e-02" />
+    </inertial>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.215" length="0.004"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://uvrobots_description/meshes/V2/BOTTOM_CHASSIS_PLATE.STL"  scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+
+
+	<!-- Caster Back Wheel -->
+  <joint name="caster_back_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_back_link"/>
+    <origin xyz="-0.155 0 -0.0145" rpy="-1.5708 0 0"/>
+  </joint>
+
+  <link name="caster_back_link">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.09" />
+      <inertia ixx="7.57929e-06" ixy="-1.2334e-13" ixz="-1.81974e-06"
+               iyy="9.21232e-06" iyz="1.50542e-13"
+               izz="4.83124e-06" />
+    </inertial>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.059 0.059 0.059"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://uvrobots_description/meshes/V2/CASTOR_WHEELS.STL"  scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+
+ 	
+  <!-- Caster Front Wheel -->
+  <joint name="caster_front_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_front_link"/>
+    <origin xyz="0.155 0 -0.0145" rpy="-1.5708 0 0"/>
+  </joint>
+
+  <link name="caster_front_link">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.09" />
+      <inertia ixx="7.57929e-06" ixy="-1.2334e-13" ixz="-1.81974e-06"
+               iyy="9.21232e-06" iyz="1.50542e-13"
+               izz="4.83124e-06" />
+    </inertial>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.059 0.059 0.059"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://uvrobots_description/meshes/V2/CASTOR_WHEELS.STL"  scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+
+ 	
+  <!-- Wheel Left Joint -->
+  <joint name="wheel_left_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_left_link"/>
+    <origin xyz="0.0 0.20055 0.032" rpy="-1.5708 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="wheel_left_link">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.5" />
+      <inertia ixx="1.25658e-03" ixy="2.3467e-14" ixz="6.91808e-16"
+               iyy="2.28482e-03" iyz="-4.63769e-14"
+               izz="1.25658e-03" />
+    </inertial>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.0483" radius="0.076784"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry>
+        <mesh filename="package://uvrobots_description/meshes/V2/LEFT_WHEEL.STL"  scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+  </link>
+   	
+
+  <!-- Wheel Right Joint -->
+  <joint name="wheel_right_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_right_link"/>
+    <origin xyz="0.0 -0.20055 0.032" rpy="-1.5708 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="wheel_right_link">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.5" />
+      <inertia ixx="1.25658e-03" ixy="2.3467e-14" ixz="6.91808e-16"
+               iyy="2.28482e-03" iyz="-4.63769e-14"
+               izz="1.25658e-03" />
+    </inertial>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.0483" radius="0.076784"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry>
+        <mesh filename="package://uvrobots_description/meshes/V2/RIGHT_WHEEL.STL"  scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+  </link>
+
+   	
+  <!-- Top Link -->
+  <joint name="top_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="top_link"/>
+    <origin xyz="0.0 0.0 0.116" rpy="0 0 0"/>
+  </joint>
+
+  <link name="top_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.92649"/>
+			<inertia ixx="6.3629e-03" ixy="3.26e-07" ixz="1.85614e-21"
+               iyy="6.66864e-03" iyz="1.50542e-13"
+               izz="4.83124e-06" />
+		</inertial>
+
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<cylinder radius="0.215" length="0.004"/>
+			</geometry>
+		</collision>
+
+		<visual>
+			<origin xyz="0.0075 0.0015 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://uvrobots_description/meshes/V2/TOP_CHASSIS_PLATE.STL"  scale="0.001 0.001 0.001"/>
+			</geometry>
+			<material name="black"/>
+		</visual>
+	</link>
+
+	
+	<!-- Base Skirt -->
+	<joint name="base_skirt_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_skirt_link"/>
+    <origin xyz="0.0 0.0 0.061" rpy="0 0 0"/>
+  </joint>
+
+	<link name="base_skirt_link">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.25"/>
+			<inertia ixx="1.94954e-04" ixy="6.66951e-02" ixz="-1.07234e-02"
+               iyy="2.27484e+1" iyz="3.07002e-05"
+               izz="2.27486e+1" />
+		</inertial>
+
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<cylinder radius="0.220" length="0.120"/>
+			</geometry>
+		</collision>
+
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://uvrobots_description/meshes/V2/BASE_SKIRT.STL"  scale="0.001 0.001 0.001"/>
+			</geometry>
+			<material name="black"/>
+		</visual>
+	</link>
+
+
+  <!-- IMU -->
+	<joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_base"/>
+    <!--origin xyz="-0.032 0 0.068" rpy="0 0 0"/-->
+    <origin xyz="0.1076 0.0 0.2432" rpy="0 0 0"/>
+  </joint>
+
+	<link name="imu_base"/>
+
+  	
+  <!-- Realsense D455 Camera Link -->
+  <joint name="camera_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+    <origin xyz="0.198 0.0 0.2085" rpy="0 0 0"/>
+  </joint>
+
+  <link name="camera_link">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.72" />
+      <inertia ixx="9.86959e-05" ixy="1.1973e-07" ixz="-7.99621e-07"
+               iyy="9.2973e-06" iyz="1.12977e-08"
+               izz="9.81244e-05" />
+  	</inertial>
+
+  	<collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.029 0.124 0.026"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="-0.005 0 -0.0015" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://uvrobots_description/meshes/V2/INTEL_REALSENSE_D455.STL"  scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+
+ 	
+  <joint name="camera_rgb_joint" type="fixed">
+    <origin xyz="0.0 -0.02 0.0" rpy="0.0 0.0 0.0"/>
+    <parent link="camera_link"/>
+    <child link="camera_rgb_frame" />
+  </joint>
+
+  <link name="camera_rgb_frame"/>
+
+
+  <joint name="camera_rgb_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679" />
+    <parent link="camera_rgb_frame" />
+    <child link="camera_rgb_optical_frame" />
+  </joint>
+
+  <link name="camera_rgb_optical_frame"/>
+
+
+  <joint name="camera_depth_joint" type="fixed">
+    <origin xyz="0 -0.045 0" rpy="0 0 0" />
+    <parent link="camera_link" />
+    <child link="camera_depth_frame" />
+  </joint>
+
+  <link name="camera_depth_frame"/>
+
+
+  <joint name="camera_depth_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679" />
+    <parent link="camera_depth_frame" />
+    <child link="camera_depth_optical_frame" />
+  </joint>
+
+  <link name="camera_depth_optical_frame"/>
+
+
+  <joint name="camera_optical_joint" type="fixed">
+  <!-- these values have to be these values otherwise the gazebo camera
+      image won't be aligned properly with the frame it is supposedly
+      originating from -->
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    <parent link="camera_link"/>
+    <child link="camera_link_optical"/>
+  </joint>
+
+  <link name="camera_link_optical"/>
+
+
+  <!-- YDLIDAR G2 Scan -->
+  <joint name="scan_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_scan"/>
+    <origin xyz="0.138 0 0.2" rpy="0 0 0"/>
+  </joint>
+
+  <link name="base_scan">
+    <inertial>
+      <mass value="0.114" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0"
+               izz="0.001" />
+    </inertial>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.0425" radius="0.03685"/>
+      </geometry>
+    </collision>  
+
+    <visual>
+      <origin xyz="0 0 0.0525" rpy="0 0 1.5708"/>
+      <geometry>
+        <mesh filename="package://uvrobots_description/meshes/V2/YDLidar_G2.STL"  scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>    	  
+  </link>
+
+
+  <!-- Ultrasonic Sensor -->
+  <joint name="base_ir_right1_joint" type="fixed">
+    <parent link="base_link"/>
+  	<child link="base_ir_right1"/>
+  	<origin xyz="0 -0.200 0.150" rpy="-1.5708 0 0"/>
+	</joint>
+
+	<link name="base_ir_right1">
+  	<inertial>
+  		<mass value="1e-5" />
+  		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<inertia ixx="1e-6" ixy="0" ixz="0"
+  		  iyy="1e-6" iyz="0"
+        izz="1e-6" />
+    </inertial>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.045 0.02 0.0135"/>
+      </geometry>
+    </collision>   
+
+    <visual>
+      <origin xyz="-0.002 -0.0025 -0.0075" rpy="3.14159 0 1.5708"/>
+      <geometry>
+        <mesh filename="package://uvrobots_description/meshes/V2/HC-SR04.STL"  scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+  </link>
+
+  	
+  <joint name="base_ir_right2_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_ir_right2"/>
+    <origin xyz="-0.200 -0.0855 0.150" rpy="1.5708 0 1.5708"/>
+  </joint>
+
+  <link name="base_ir_right2">
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0"
+        iyy="1e-6" iyz="0"
+        izz="1e-6" />
+    </inertial>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.045 0.02 0.0135"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="-0.001 0.0025 0.01" rpy="2.70526 0 -1.5708"/>
+      <geometry>
+        <mesh filename="package://uvrobots_description/meshes/V2/HC-SR04.STL"  scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>    
+  </link>
+
+  	
+  <joint name="base_ir_left1_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_ir_left1"/>
+    <origin xyz="0 0.200 0.150" rpy="1.5708 0 0"/>
+  </joint>
+
+  <link name="base_ir_left1">
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+  		<inertia ixx="1e-6" ixy="0" ixz="0"
+    		iyy="1e-6" iyz="0"
+    		izz="1e-6" />
+  	</inertial>
+
+  	<collision>
+  		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<geometry>
+  			<box size="0.045 0.02 0.0135"/>
+  		</geometry>
+  	</collision>
+
+  	<visual>
+  		<origin xyz="0.002 0.0025 -0.007" rpy="3.14159 0 -1.5708"/>
+  		<geometry>
+    		<mesh filename="package://uvrobots_description/meshes/V2/HC-SR04.STL"  scale="0.001 0.001 0.001"/>
+  		</geometry>
+  		<material name="dark"/>
+  	</visual>    	    
+	</link>
+
+  	
+	<joint name="base_ir_left2_joint" type="fixed">
+  	<parent link="base_link"/>
+  	<child link="base_ir_left2"/>
+  	<origin xyz="-0.200 0.0855 0.150" rpy="1.5708 0 1.5708"/>
+	</joint>
+
+	<link name="base_ir_left2">
+  	<inertial>
+  		<mass value="1e-5" />
+  		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<inertia ixx="1e-6" ixy="0" ixz="0"
+    		iyy="1e-6" iyz="0"
+    		izz="1e-6" />
+  	</inertial>
+
+  	<collision>
+  		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<geometry>
+  			<box size="0.045 0.02 0.0135"/>
+  		</geometry>
+  	</collision> 
+
+  	<visual>
+  		<origin xyz="0.004 0.0025 0.012" rpy="3.57792 0 -1.5708"/>
+  		<geometry>
+    		<mesh filename="package://uvrobots_description/meshes/V2/HC-SR04.STL"  scale="0.001 0.001 0.001"/>
+  		</geometry>
+  		<material name="dark"/>
+  	</visual>
+	</link>
+
+  	
+	<!-- Top Skirt -->
+	<joint name="top_skirt_joint" type="fixed">
+    <parent link="base_link"/>
+  	<child link="top_skirt_link"/>
+  	<origin xyz="0.0 0.0 0.19755" rpy="0 0 0"/>
+	</joint>
+
+	<link name="top_skirt_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.37"/>
+		  <inertia ixx="7.6943e-02" ixy="4.24102e-03" ixz="-1.39489e-03"
+               iyy="-3.13302e-02" iyz="-1.10959e-04"
+               izz="3.45636e-02" />
+  	</inertial>
+
+		<collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.220" length="0.1772"/>
+			</geometry>
+		</collision>
+
+		<visual>
+      <origin xyz="0.037 -0.001 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://uvrobots_description/meshes/V2/TOP_SKIRT.STL"  scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+
+	
+	<!-- UV Model -->
+  <joint name="uv_base_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="uv_base_link"/>
+    <origin xyz="0.0 0.0 0.2972" rpy="0 0 0"/>
+  </joint>
+
+  <link name="uv_base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="1.0"/>
+			<inertia ixx="6.35262e-03" ixy="5.92227e-07" ixz="-1.11331e-09"
+               iyy="6.05308e-03" iyz="-1.25024e-11"
+               izz="1.24042e-02" />
+		</inertial>
+
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<cylinder radius="0.215" length="0.004"/>
+			</geometry>
+		</collision>
+
+		<visual>
+			<origin xyz="-0.0175 -0.005 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://uvrobots_description/meshes/V2_UV_Module/UV_BOTTOM_PLATE.STL"  scale="0.001 0.001 0.001"/>
+			</geometry>
+			<material name="black"/>
+		</visual>
+	</link>
+
+	
+  <!-- UV SKIRT -->
+	<joint name="uv_skirt_joint" type="fixed">
+    <parent link="uv_base_link"/>
+    <child link="uv_skirt_link"/>
+    <origin xyz="0.0 0.0 0.05425" rpy="0 0 0"/>
+  </joint>
+
+	<link name="uv_skirt_link">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.25"/>
+			<inertia ixx="4.58184e-02" ixy="6.22084e-04" ixz="-4.34012e-06"
+               iyy="4.71548e-02" iyz="-1.30507e-05"
+               izz="8.93176e-02" />
+		</inertial>
+
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<cylinder radius="0.220" length="0.1772"/>
+			</geometry>
+		</collision>
+
+		<visual>
+			<origin xyz="-0.0001 0.0001 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://uvrobots_description/meshes/V2_UV_Module/UV_SKIRT.STL"  scale="0.001 0.001 0.001"/>
+			</geometry>
+			<material name="black"/>
+		</visual>
+	</link>
+
+	
+	<joint name="uv_top_joint" type="fixed">
+    <parent link="uv_base_link"/>
+    <child link="uv_top_link"/>
+    <origin xyz="0.0 0.0 0.1082" rpy="0 0 0"/>
+	</joint>
+
+	<link name="uv_top_link">
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="1.0"/>
+			<inertia ixx="6.44579e-03" ixy="-2.25193e-06" ixz="-1.5402e-08"
+               iyy="6.46613e-03" iyz="7.19527e-09"
+               izz="1.29105e-02" />
+		</inertial>
+
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<cylinder radius="0.215" length="0.004"/>
+			</geometry>
+		</collision>
+
+		<visual>
+			<origin xyz="-0.0075 0.0075 -0.00075" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://uvrobots_description/meshes/V2_UV_Module/UV_TOP_PLATE.STL"  scale="0.001 0.001 0.001"/>
+			</geometry>
+			<material name="black"/>
+		</visual>
+	</link>
+
+	
+	<!-- UV Lamp Top Module -->
+	<joint name="uv_joint" type="fixed">
+    <parent link="uv_base_link"/>
+    <child link="uv_link"/>
+    <origin xyz="0 0 0.137" rpy="0 0 0"/>
+  </joint>
+
+  <link name="uv_link">
+    <inertial>
+      <mass value="0.114" />
+    	<origin xyz="0 0 0" />
+    		<inertia ixx="0.001" ixy="0.0" ixz="0.0"
+             iyy="0.001" iyz="0.0"
+             izz="0.001" />
+  	</inertial>
+
+  	<collision>
+  		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<geometry>
+  			<cylinder length="0.0516" radius="0.120"/>
+  		</geometry>
+  	</collision> 
+
+  	<visual>
+  		<origin xyz="0 0 0.147" rpy="0 0 0"/>
+  		<geometry>
+    		<mesh filename="package://uvrobots_description/meshes/V2_UV_Module/UV_LAMP_TOP.STL"  scale="0.001 0.001 0.001"/>
+  		</geometry>
+  		<material name="dark"/>
+  	</visual>   
+	</link>
+
+  	
+	<!-- Ultrasonic Sensor -->
+	<joint name="uv_ir_right1_joint" type="fixed">
+    <parent link="uv_link"/>
+    <child link="uv_ir_right1"/>
+    <origin xyz="0.067 -0.069 0.0035" rpy="0.785398 0 0.785398"/>
+  </joint>
+
+	<link name="uv_ir_right1">
+  	<inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0"
+    		iyy="1e-6" iyz="0"
+    		izz="1e-6" />
+  	</inertial>
+
+  	<collision>
+  		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<geometry>
+  			<box size="0.045 0.02 0.0135"/>
+  		</geometry>
+  	</collision> 
+
+  	<visual>
+  		<origin xyz="0 0 0.0" rpy="0 0 -1.5708"/>
+  		<geometry>
+    		<mesh filename="package://uvrobots_description/meshes/V2_UV_Module/HC-SR04.STL"  scale="0.001 0.001 0.001"/>
+  		</geometry>
+  		<material name="dark"/>
+  	</visual>   
+	</link>
+
+  	
+	<joint name="uv_ir_right2_joint" type="fixed">
+  	<parent link="uv_link"/>
+  	<child link="uv_ir_right2"/>
+  	<origin xyz="-0.069 -0.067 0.0035" rpy="3.9269 3.14159 2.35619"/>
+	</joint>
+
+	<link name="uv_ir_right2">
+  	<inertial>
+  		<mass value="1e-5" />
+  		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<inertia ixx="1e-6" ixy="0" ixz="0"
+    		iyy="1e-6" iyz="0"
+    		izz="1e-6" />
+  	</inertial>
+
+  	<collision>
+  		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<geometry>
+  			<box size="0.045 0.02 0.0135"/>
+  		</geometry>
+  	</collision>  
+
+  	<visual>
+  		<origin xyz="0 0 0.0" rpy="0 0 -1.5708"/>
+  		<geometry>
+    		<mesh filename="package://uvrobots_description/meshes/V2_UV_Module/HC-SR04.STL"  scale="0.001 0.001 0.001"/>
+  		</geometry>
+  		<material name="dark"/>
+  	</visual>
+	</link>
+
+
+	<joint name="uv_ir_left1_joint" type="fixed">
+  	<parent link="uv_link"/>
+  	<child link="uv_ir_left1"/>
+  	<origin xyz="0.067 0.069 0.0035" rpy="-0.785398 0 -0.785398"/>
+	</joint>
+
+	<link name="uv_ir_left1">
+  	<inertial>
+  		<mass value="1e-5" />
+  		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<inertia ixx="1e-6" ixy="0" ixz="0"
+    		iyy="1e-6" iyz="0"
+    		izz="1e-6" />
+  	</inertial>
+
+  	<collision>
+  		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<geometry>
+  			<box size="0.045 0.02 0.0135"/>
+  		</geometry>
+  	</collision>  
+
+  	<visual>
+  		<origin xyz="0 0 0.0" rpy="0 0 -1.5708"/>
+  		<geometry>
+    		<mesh filename="package://uvrobots_description/meshes/V2_UV_Module/HC-SR04.STL"  scale="0.001 0.001 0.001"/>
+  		</geometry>
+  		<material name="dark"/>
+  	</visual>
+	</link>
+
+  	
+	<joint name="uv_ir_left2_joint" type="fixed">
+  	<parent link="uv_link"/>
+  	<child link="uv_ir_left2"/>
+  	<origin xyz="-0.067 0.069 0.0035" rpy="0.785398 0 -2.35619"/>
+	</joint>
+
+	<link name="uv_ir_left2">
+  	<inertial>
+  		<mass value="1e-5" />
+  		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<inertia ixx="1e-6" ixy="0" ixz="0"
+    		iyy="1e-6" iyz="0"
+    		izz="1e-6" />
+  	</inertial>
+
+  	<collision>
+  		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<geometry>
+  			<box size="0.045 0.02 0.0135"/>
+  		</geometry>
+  	</collision>  
+
+  	<visual>
+  		<origin xyz="0 0 0.0" rpy="0 0 -1.5708"/>
+  		<geometry>
+    		<mesh filename="package://uvrobots_description/meshes/V2_UV_Module/HC-SR04.STL"  scale="0.001 0.001 0.001"/>
+  		</geometry>
+  		<material name="dark"/>
+  	</visual>  
+	</link>
+
+  	
+	<!-- UV Tube Light -->
+	<joint name="uv_lamp_front_joint" type="fixed">
+  	<parent link="uv_link"/>
+  	<child link="uv_lamp_front_link"/>
+  	<origin xyz="0.03 0 0.385" rpy="0 0 0"/>
+	</joint>
+
+  <link name="uv_lamp_front_link">
+  	<inertial>
+  		<origin xyz="0 0 0" />
+      <mass value="0.083" />
+  		<inertia ixx="1.24481e-02" ixy="3.27202e-22" ixz="-3.81582e-20"
+               iyy="1.24481e-02" iyz="-3.01958e-18"
+               izz="7.74459e-06" />
+  	</inertial>
+
+  	<collision>
+  		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<geometry>
+  			<cylinder length="0.8454" radius="0.0094"/>
+  		</geometry>
+  	</collision>  
+
+  	<visual>
+  		<origin xyz="0 0 0.0" rpy="0 0 0"/>
+  		<geometry>
+    		<mesh filename="package://uvrobots_description/meshes/V2_UV_Module/UV_LAMP.STL"  scale="0.001 0.001 0.001"/>
+  		</geometry>
+  		<material name="dark"/>
+  	</visual>
+	</link>
+
+  	
+	<joint name="uv_lamp_back_joint" type="fixed">
+  	<parent link="uv_link"/>
+  	<child link="uv_lamp_back_link"/>
+  	<origin xyz="-0.03 0 0.385" rpy="0 0 0"/>
+	</joint>
+
+  <link name="uv_lamp_back_link">
+  	<inertial>
+  		<origin xyz="0 0 0" />
+  		<mass value="0.083" />
+      <inertia ixx="1.24481e-02" ixy="3.27202e-22" ixz="-3.81582e-20"
+               iyy="1.24481e-02" iyz="-3.01958e-18"
+               izz="7.74459e-06" />
+  	</inertial>
+
+  	<collision>
+  		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<geometry>
+  			<cylinder length="0.8454" radius="0.0094"/>
+  		</geometry>
+  	</collision>  
+
+  	<visual>
+  		<origin xyz="0 0 0.0" rpy="0 0 0"/>
+  		<geometry>
+    		<mesh filename="package://uvrobots_description/meshes/V2_UV_Module/UV_LAMP.STL"  scale="0.001 0.001 0.001"/>
+  		</geometry>
+  		<material name="dark"/>
+  	</visual>	  
+	</link>
+
+
+  <joint name="uv_lamp_right_joint" type="fixed">
+  	<parent link="uv_link"/>
+  	<child link="uv_lamp_right_link"/>
+  	<origin xyz="0 -0.03 0.385" rpy="0 0 0"/>
+	</joint>
+
+  <link name="uv_lamp_right_link">
+  	<inertial>
+  		<origin xyz="0 0 0" />
+  		<mass value="0.083" />
+      <inertia ixx="1.24481e-02" ixy="3.27202e-22" ixz="-3.81582e-20"
+               iyy="1.24481e-02" iyz="-3.01958e-18"
+               izz="7.74459e-06" />
+  	</inertial>
+
+  	<collision>
+  		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<geometry>
+  			<cylinder length="0.8454" radius="0.0094"/>
+  		</geometry>
+  	</collision> 
+
+  	<visual>
+  		<origin xyz="0 0 0.0" rpy="0 0 0"/>
+  		<geometry>
+    		<mesh filename="package://uvrobots_description/meshes/V2_UV_Module/UV_LAMP.STL"  scale="0.001 0.001 0.001"/>
+  		</geometry>
+  		<material name="dark"/>
+  	</visual>	   
+	</link>
+
+  	
+	<joint name="uv_lamp_left_joint" type="fixed">
+  	<parent link="uv_link"/>
+  	<child link="uv_lamp_left_link"/>
+  	<origin xyz="0 0.03 0.385" rpy="0 0 0"/>
+	</joint>
+
+  <link name="uv_lamp_left_link">
+  	<inertial>
+  		<origin xyz="0 0 0" />
+  		<mass value="0.083" />
+      <inertia ixx="1.24481e-02" ixy="3.27202e-22" ixz="-3.81582e-20"
+               iyy="1.24481e-02" iyz="-3.01958e-18"
+               izz="7.74459e-06" />
+  	</inertial>
+
+  	<collision>
+  		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<geometry>
+  			<cylinder length="0.8454" radius="0.0094"/>
+  		</geometry>
+  	</collision>   
+
+  	<visual>
+  		<origin xyz="0 0 0.0" rpy="0 0 0"/>
+  		<geometry>
+    		<mesh filename="package://uvrobots_description/meshes/V2_UV_Module/UV_LAMP.STL"  scale="0.001 0.001 0.001"/>
+  		</geometry>
+  		<material name="dark"/>
+  	</visual>
+	</link>
+
+
+	<!-- V2 Simulated Sensors -->
+	<joint name="sim_ir_right1_joint" type="fixed">
+  	<parent link="base_ir_right1"/>
+  	<child link="sim_ir_right1"/>
+  	<origin xyz="0 0 0" rpy="0 1.5708 0"/>
+	</joint>
+
+	<link name="sim_ir_right1"/>
+	
+	
+ 	<joint name="sim_ir_right2_joint" type="fixed">
+  	<parent link="base_ir_right2"/>
+  	<child link="sim_ir_right2"/>
+  	<origin xyz="-0.01 0.005 0" rpy="0 2.0944 0"/>
+	</joint>
+
+	<link name="sim_ir_right2"/>
+	
+
+ 	<joint name="sim_ir_left1_joint" type="fixed">
+  	<parent link="base_ir_left1"/>
+  	<child link="sim_ir_left1"/>
+  	<origin xyz="0 0 0" rpy="0 1.5708 0"/>
+	</joint>
+
+	<link name="sim_ir_left1"/>
+	
+	
+ 	<joint name="sim_ir_left2_joint" type="fixed">
+  	<parent link="base_ir_left2"/>
+  	<child link="sim_ir_left2"/>
+  	<origin xyz="-0.01 0.005 0" rpy="0 1.0472 0"/>
+	</joint>
+
+	<link name="sim_ir_left2"/>
+	
+	
+ 	<joint name="sim_joint" type="fixed">
+  	<parent link="base_scan"/>
+  	<child link="sim_scan"/>
+  	<origin xyz="0 0 0.075" rpy="0 0 0"/>
+	</joint>
+
+	<link name="sim_scan"/>
+
+	<joint name="sim_uv_ir_right1_joint" type="fixed">
+  	<parent link="uv_ir_right1"/>
+  	<child link="sim_uv_ir_right1"/>
+  	<origin xyz="0 0 0" rpy="0 -1.5708 1.5708"/>
+	</joint>
+
+	<link name="sim_uv_ir_right1"/>
+	
+	
+ 	<joint name="sim_uv_ir_right2_joint" type="fixed">
+  	<parent link="uv_ir_right2"/>
+  	<child link="sim_uv_ir_right2"/>
+  	<origin xyz="0 0 0" rpy="0 -1.5708 1.5708"/>
+	</joint>
+
+	<link name="sim_uv_ir_right2"/>
+	
+	
+ 	<joint name="sim_uv_ir_left1_joint" type="fixed">
+  	<parent link="uv_ir_left1"/>
+  	<child link="sim_uv_ir_left1"/>
+  	<origin xyz="0 0 0" rpy="0 -1.5708 1.5708"/>
+	</joint>
+
+	<link name="sim_uv_ir_left1"/>
+	
+	
+ 	<joint name="sim_uv_ir_left2_joint" type="fixed">
+  	<parent link="uv_ir_left2"/>
+  	<child link="sim_uv_ir_left2"/>
+  	<origin xyz="0 0 0" rpy="0 -1.5708 1.5708"/>
+	</joint>
+
+	<link name="sim_uv_ir_left2"/>
+</robot>

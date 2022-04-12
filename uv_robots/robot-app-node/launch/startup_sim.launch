@@ -1,0 +1,9 @@
+<launch>
+  <include file="$(find uvrobots_nav)/launch/include/odom/teb_move_base.launch" />
+
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
+  
+  <node pkg="hector_compressed_map_transport" name="map_to_image_node" type="map_to_image_node" respawn="true" />
+  
+  <node pkg="app_node" name="app_node" type="app_node.py" respawn="true"/>
+</launch>

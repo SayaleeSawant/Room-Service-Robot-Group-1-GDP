@@ -1,0 +1,36 @@
+<launch>
+  <!-- node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan" >
+		<remap from="image" to="camera/depth/image_raw"/>
+		<remap from="camera_info" to="/camera/color/camera_info"/>
+		<remap from="scan" to="/camera/scan"/>
+		<param name="scan_height" value="1"/> 
+    <param name="output_frame_id" value="camera_link"/>
+  </node -->
+
+  <!-- node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
+		<remap from="cloud_in" to="/camera/depth/points"/>
+		<remap from="scan" to="/camera/scan"/>
+		<param name="target_frame" value="camera_link"/>
+		<param name="min_height" value="0.015"/>
+		<param name="max_height" value="2.0"/>
+	
+		<param name="angle_min" value="-1.5708"/>
+		<param name="angle_max" value="1.5708"/>
+		<param name="angle_increment" value="0.0087"/>
+		<param name="scan_time" value="0.3333"/>
+		<param name="range_min" value="0.45"/>
+		<param name="range_max" value="4.0"/>
+		<param name="use_inf" value="true"/>
+
+		<param name="concurrency_level" value="1"/>
+  </node -->
+
+  <include file="$(find uvrobots_nav)/launch/include/odom/gmapping.launch"/>
+  <include file="$(find uvrobots_nav)/launch/include/odom/teb_move_base.launch"/>
+  <include file="$(find world_canvas_server)/launch/world_canvas_server.launch"/>
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
+
+  <!-- rviz -->
+  <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find uvrobots_nav)/rviz/mapping.rviz"/>
+</launch>

@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="lidar_filter" type="lidarFilter.py" output="screen" name="lidar_filter">
+    <rosparam command="load" file="$(find lidar_filter)/config/lidarFilter.yaml"/>
+  </node>
+</launch>

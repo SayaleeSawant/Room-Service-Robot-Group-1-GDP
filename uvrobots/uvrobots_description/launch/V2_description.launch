@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <arg name="urdf_robot_file" default="$(find xacro)/xacro '--inorder' '$(find uvrobots_description)/urdf/uvrobot_v2.urdf.xacro'" />
+  <param name="robot_description" command="$(arg urdf_robot_file)"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+    <param name="publish_frequency" type="double" value="5.0"/>
+  </node>
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="rate" value="20.0"/>
+  </node>
+</launch>
