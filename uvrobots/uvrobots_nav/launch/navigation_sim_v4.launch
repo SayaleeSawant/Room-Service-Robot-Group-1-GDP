@@ -1,6 +1,6 @@
 <launch>
-  <arg name="initial_pose_x" default="0.0"/> 
-  <arg name="initial_pose_y" default="0.0"/> 
+  <arg name="initial_pose_x" default="159.5"/> 
+  <arg name="initial_pose_y" default="181.5"/> 
   <arg name="initial_pose_a" default="0.0"/>
 
   <arg name="map_file" default="$(find uvrobots_simulations)/maps/3_floor_v4.yaml"/>

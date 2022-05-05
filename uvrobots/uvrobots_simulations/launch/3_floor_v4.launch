@@ -15,8 +15,8 @@
   <arg name="model" default="$(env UVRobots_Model)" doc="model type [v2, v2_uv, v2_restaurant, v3, v3_uv, v3_restaurant]"/>
 
   <!-- Change spawn position -->
-  <arg name="x_pos" default="0.0"/>
-  <arg name="y_pos" default="0.0"/>
+  <arg name="x_pos" default="159.5"/>
+  <arg name="y_pos" default="181.5"/>
   <arg name="z_pos" default="0.0"/>
 
   <!-- Call robot description launch file -->

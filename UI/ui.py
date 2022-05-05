@@ -1,5 +1,7 @@
+# Tkinter imports
 import tkinter as tk
 from tkinter import ttk as ttk
+# ROS imports
 import rospy
 import actionlib
 from move_base_msgs.msg import MoveBaseAction,MoveBaseGoal
@@ -13,29 +15,46 @@ client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
 # Waits until the action server has started up and started listening for goals.
 client.wait_for_server()
 
-# Method linked to home button
+# Function linked to home button
 def go_home():
+    # Creates a new goal with the MoveBaseGoal constructor
+    goal = MoveBaseGoal()
+    goal.target_pose.header.frame_id = "map"
+    goal.target_pose.header.stamp = rospy.Time.now()
+    # Move 0.5 meters forward along the x axis of the "map" coordinate frame
+    goal.target_pose.pose.position.x = home_pos[0]
+    goal.target_pose.pose.position.y = home_pos[1]
+    # No rotation of the mobile base frame w.r.t. map frame
+    goal.target_pose.pose.orientation.w = 1.0
+    # Send nav goal to server
+    client.send_goal(goal)
     print "Heading home"
 
 # Event handler for list update
 def text_box_update(event):
     print "Navigation goal updated, current selection : ",list.get()
 
+# Function linked to Go dest buton
 def go_dest():
+    room_number = list.get()
     # Creates a new goal with the MoveBaseGoal constructor
     goal = MoveBaseGoal()
     goal.target_pose.header.frame_id = "map"
     goal.target_pose.header.stamp = rospy.Time.now()
     # Move 0.5 meters forward along the x axis of the "map" coordinate frame
-    goal.target_pose.pose.position.x = 0.5
+    goal.target_pose.pose.position.x = room_list[room_number][0]
+    goal.target_pose.pose.position.y = room_list[room_number][1]
     # No rotation of the mobile base frame w.r.t. map frame
     goal.target_pose.pose.orientation.w = 1.0
+    # Send nav goal to server
     client.send_goal(goal)
     wait = client.wait_for_result()
     print "Destination goal sent to robot"
 
-room_list = {"3034":(0,0),"3032":(100,100),"3030":(200,200)}
+room_list = {"3036":(155,183),"3038":(150,183),"3040":(148,185),"3042":(143,187),"3044":(141,187),"3046":(135,187),"3048":(134,188),"3050":(128,188),"3052":(127,188),"3054":(122,189),"3056":(120,189),"3060":(90,192),"3062":(88,192),"3064":(84,193),"3066":(82,193),"3068":(82,193),"3070":(75,194),"3072":(69,195),"3074":(68,195),"3076":(62,194),"3078":(61,194),"3080":(55,194),"3082":(48,193)}
+home_pos = (166,177)
 
+## UI
 window = tk.Tk()
 
 # Welcome message

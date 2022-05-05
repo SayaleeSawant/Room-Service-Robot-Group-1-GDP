@@ -78,7 +78,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>model://map_v4/meshes/map.stl</uri>
+              <uri>model://map_v4/meshes/map_v4.stl</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -99,7 +99,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>model://map_v4/meshes/map.stl</uri>
+              <uri>model://map/meshes/map.stl</uri>
             </mesh>
           </geometry>
         </visual>
@@ -134,10 +134,10 @@
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
     <state world_name='default'>
-      <sim_time>103 813000000</sim_time>
-      <real_time>104 323695337</real_time>
-      <wall_time>1651611488 303991821</wall_time>
-      <iterations>103813</iterations>
+      <sim_time>38 715000000</sim_time>
+      <real_time>38 910306676</real_time>
+      <wall_time>1651755206 788693852</wall_time>
+      <iterations>38715</iterations>
       <model name='ground_plane'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -164,7 +164,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>163.334 39.0678 36.9731 0 0.799643 1.30419</pose>
+        <pose frame=''>99.5584 22.3898 162.451 0 1.12764 1.46419</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
