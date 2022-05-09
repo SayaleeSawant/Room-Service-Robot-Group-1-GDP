@@ -1,0 +1,42 @@
+<launch>
+  <arg name="model" default="$(env UVRobots_Model)" doc="model type [v2, v2_uv, v2_restaurant, v3, v3_uv, v3_restaurant]"/>
+
+  <arg name="initial_pose_x" default="0.0"/>
+  <arg name="initial_pose_y" default="0.0"/>
+  <arg name="initial_pose_a" default="0.0"/>
+
+  <arg name="align_depth" default="true"/>
+  <arg name="enable_pointcloud" default="true"/>
+  <arg name="initial_reset" default="true"/>
+  <arg name="filters" default="pointcloud"/>
+
+  <!-- <arg name="map_file" default="$(find uvrobots_nav)/maps/MKStadiumFloor3.yaml"/> -->
+  <arg name="map_file" default="$(find uvrobots_nav)/maps/map_0505.yaml"/>
+
+  <include file="$(find uvrobots_driver)/launch/driver_imu.launch"/>
+  <include file="$(find ydlidar_ros)/launch/G4.launch"/>
+  <include file="$(find uvrobots_lamp)/launch/uvlamp.launch"/>
+
+  <include file="$(find uvrobots_description)/launch/description.launch">
+    <arg name="model" value="$(arg model)"/>
+  </include>
+
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+  	<!-- <arg name="initial_reset" value="$(arg initial_reset)"/>
+    	<arg name="align_depth" value="$(arg align_depth)"/>
+  	<arg name="filters" value="$(arg filters)"/>
+  	<arg name="enable_pointcloud" value="$(arg enable_pointcloud)"/> -->
+  </include>
+
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <include file="$(find uvrobots_nav)/launch/include/imu/amcl.launch.xml">
+    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
+  </include>
+
+  <include file="$(find uvrobots_nav)/launch/include/imu/teb_move_base.launch"/>
+  <!-- <include file="$(find world_canvas_server)/launch/world_canvas_server.launch"/> -->
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
+</launch>
