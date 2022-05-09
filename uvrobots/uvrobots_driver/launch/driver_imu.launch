@@ -1,0 +1,68 @@
+<launch>
+    <arg name="node_name"             value="velocity_smoother"/>
+    <arg name="nodelet_manager_name"  value="nodelet_manager"/>
+    <arg name="config_file"           value="$(find uvrobots_driver)/config/yocs_velocity_smoother.yaml"/>
+    <arg name="raw_cmd_vel_topic"     value="cmd_vel"/>
+    <arg name="smooth_cmd_vel_topic"  value="smoother_cmd_vel"/>
+    <arg name="robot_cmd_vel_topic"   value="robot_cmd_vel"/>
+    <arg name="odom_topic"            value="odom"/>
+    <arg name="align_depth"           value="true"/>
+    <arg name="enable_gyro"           value="false"/>
+    <arg name="enable_accel"          value="false"/>
+    <arg name="unite_imu_method"      value="linear_interpolation"/>
+
+    <node pkg="uvrobots_driver" type="driver.sh" name="driver" output="screen"/>
+
+    <!-- node pkg="uvrobots_driver" type="collision_Avoidance.py" output="screen" name="collision_Avoidance"/-->
+
+    <node pkg="uvrobots_driver" type="odom_publisher.py" output="screen" name="odom_publisher"/>
+
+    <node pkg="imu_complementary_filter" type="complementary_filter_node" output="screen" name="imu_filter_node_for_orientation">
+	<param name="gain_acc" type="double" value="0.01" />
+      	<param name="gain_mag" type="double" value="0.01" />
+      	<param name="bias_alpha" type="double" value="0.01" />
+      	<param name="do_bias_estimation" type="bool" value="true"/>
+    </node>
+
+    <node pkg="uvrobots_driver" type="tf_broadcaster_imu.py" output="screen" name="tf_broadcaster_imu"/>
+
+    <!--node pkg="uvrobots_driver" type="tf_broadcaster_odom.py" output="screen" name="tf_broadcaster_odom"/-->
+
+    <node pkg="uvrobots_driver" type="tf_broadcaster_odom_combined.py" output="screen" name="tf_broadcaster_odom_combined"/>
+
+
+    <!-- nodelet manager -->
+    <node pkg="nodelet" type="nodelet" name="$(arg nodelet_manager_name)" args="manager"/>
+
+    <!-- velocity smoother -->
+    <include file="$(find yocs_velocity_smoother)/launch/velocity_smoother.launch">
+      <arg name="node_name"             value="$(arg node_name)"/>
+      <arg name="nodelet_manager_name"  value="$(arg nodelet_manager_name)"/>
+      <arg name="config_file"           value="$(arg config_file)"/>
+      <arg name="raw_cmd_vel_topic"     value="$(arg raw_cmd_vel_topic)"/>
+      <arg name="smooth_cmd_vel_topic"  value="$(arg smooth_cmd_vel_topic)"/>
+      <arg name="robot_cmd_vel_topic"   value="$(arg robot_cmd_vel_topic)"/>
+      <arg name="odom_topic"            value="$(arg odom_topic)"/>
+    </include>
+
+    <!-- Realsense Camera D455 Launch -->
+    <!-- include file="$(find realsense2_camera)/launch/rs_camera.launch">
+      <arg name="align_depth"       value="$(arg align_depth)"/>
+      <arg name="enable_gyro"       value="$(arg enable_gyro)"/>
+      <arg name="enable_accel"      value="$(arg enable_accel)"/>
+      <arg name="unite_imu_method"  value="$(arg unite_imu_method)"/>
+    </include -->
+
+    <!-- <node pkg="imu_filter_madgwick" type="imu_filter_node" name="ImuFilter">
+      <param name="use_mag" type="bool" value="true" />
+      <param name="publish_tf" type="bool" value="false" />
+      <param name="world_frame" type="string" value="nwu" />
+      <param name="fixed_frame" type="string" value="odom"/>
+    </node> -->
+
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
+      <rosparam command="load" file="$(find uvrobots_driver)/config/ekf.yaml"/>
+      <remap from="odometry/filtered" to="odom_combined"/>
+    </node>
+
+</launch>

@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="uvrobots_lamp" type="lamp_Controller.py" output="screen" name="lamp_Controller"/>
+</launch>

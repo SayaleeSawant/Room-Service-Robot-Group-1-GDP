@@ -1,0 +1,33 @@
+<launch>
+	<arg name="port_count"	default="0"/>
+	<arg name="port1"	default=""/>
+	<arg name="port2"	default=""/>
+	<arg name="port3"	default=""/>
+
+	<group if="$(eval arg('port_count') == 1)">
+		<node pkg="rosserial_python" type="serial_node.py" name="Arduino1" output="screen">
+			<param name="port"	value="$(arg port1)"/>		
+		</node>
+	</group>	
+
+	<group if="$(eval arg('port_count') == 2)">
+		<node pkg="rosserial_python" type="serial_node.py" name="Arduino1" output="screen">
+			<param name="port"	value="$(arg port1)"/>		
+		</node>
+		<node pkg="rosserial_python" type="serial_node.py" name="Arduino2" output="screen">
+			<param name="port"	value="$(arg port2)"/>		
+		</node>		
+	</group>
+
+	<group if="$(eval arg('port_count') == 3)">
+		<node pkg="rosserial_python" type="serial_node.py" name="Arduino1" output="screen">
+			<param name="port"	value="$(arg port1)"/>		
+		</node>
+		<node pkg="rosserial_python" type="serial_node.py" name="Arduino2" output="screen">
+			<param name="port"	value="$(arg port2)"/>		
+		</node>
+		<node pkg="rosserial_python" type="serial_node.py" name="Arduino3" output="screen">
+			<param name="port"	value="$(arg port3)"/>		
+		</node>		
+	</group>
+</launch>
