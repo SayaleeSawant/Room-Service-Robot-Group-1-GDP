@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <!-- Add uvrobots_simulations/models to GAZEBO_MODEL_PATH. 
+       GAZEBO_MODEL_PATH is an environment variable you can edit. 
+       It allows Gazebo to be aware that the models in the given path(s) exist. -->
+  <env name="GAZEBO_MODEL_PATH" value="$(find uvrobots_simulations)/models:$(optenv GAZEBO_MODEL_PATH)" /> 
+
+  <!-- Gazebo options --> 
+  <arg name="debug" default="false"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+
+  <!-- Choose what model of robot you wanna use using previous environment variable definition with command : export UVRobots_Model = v3  --> 
+  <arg name="model" default="$(env UVRobots_Model)" doc="model type [v2, v2_uv, v2_restaurant, v3, v3_uv, v3_restaurant]"/>
+
+  <!-- Change spawn position -->
+  <arg name="x_pos" default="159.5"/>
+  <arg name="y_pos" default="181.5"/>
+  <arg name="z_pos" default="0.0"/>
+
+  <!-- Call robot description launch file -->
+  <include file="$(find uvrobots_description)/launch/description.launch">
+   <arg name="model" value="$(arg model)"/>
+  </include>
+
+  <!-- Call spawn_urdf node to spawn robot -->
+  <!-- Robot is called in world file so no need to call it again or it causes spawn error -->
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model $(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" /> 
+
+  <!-- Start Gazebo with a blank world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="headless" value="$(arg headless)"/>
+    <!-- Change world --> 
+    <arg name="world_name" value="$(find uvrobots_simulations)/worlds/3_floor_v5.world"/>
+  </include>
+
+</launch>
+
