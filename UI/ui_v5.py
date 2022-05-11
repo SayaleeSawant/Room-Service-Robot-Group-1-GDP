@@ -98,7 +98,7 @@ dest_button.pack()
 
 # Room list
 value = tk.StringVar()
-list = ttk.Combobox(frame_room_list, values=room_list.keys(),textvariable=value)
+list = ttk.Combobox(frame_room_list, values=sorted(room_list.keys(),key=int),textvariable=value)
 list.bind("<<ComboboxSelected>>",text_box_update)
 list.set("Select destination")
 list.pack()
